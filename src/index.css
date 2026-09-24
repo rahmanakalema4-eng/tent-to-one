@@ -1,0 +1,77 @@
+:root {
+  --ten-gold: #d4a437;
+  --ten-teal: #0b5d5a;
+  --ten-red: #bf3b2c;
+  --ten-ink: #101a1a;
+  --ten-white: #ffffff;
+  --ten-surface: #f6f1e8;
+  --ten-border: rgba(16, 26, 26, 0.12);
+
+  --font-display: 'Trebuchet MS', 'Segoe UI', sans-serif;
+  --font-body: 'Segoe UI', sans-serif;
+
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+  --space-5: 2.5rem;
+  --space-6: 3rem;
+
+  --radius-sm: 0.5rem;
+  --radius-md: 0.875rem;
+  --radius-lg: 1.25rem;
+  --radius-xl: 1.7rem;
+  --radius-pill: 999px;
+
+  --shadow-soft: 0 18px 40px rgba(16, 26, 26, 0.08);
+
+  color: var(--ten-ink);
+  background: var(--ten-white);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: linear-gradient(180deg, #fffefb 0%, var(--ten-surface) 100%);
+  color: var(--ten-ink);
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
