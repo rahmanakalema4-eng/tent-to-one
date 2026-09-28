@@ -1,97 +1,82 @@
 export const content = {
   nav: [
-    { label: 'Home', href: '#home' },
+    { label: 'Home', href: '#story' },
     { label: 'About', href: '#about' },
-    { label: 'Programs & Activities', href: '#programs' },
-    { label: 'Community Impact', href: '#community-impact' },
+    { label: 'Programs', href: '#programs' },
+    { label: 'Impact', href: '#impact' },
     { label: 'Leadership', href: '#leadership' },
-    { label: 'Get Involved', href: '#get-involved' },
+    { label: 'Get Involved', href: '#join' },
     { label: 'Contact', href: '#contact' },
   ],
   hero: {
-    eyebrow: 'TEN TO ONE YOUTH CLUB',
-    title: 'TOGETHER AS ONE',
-    tagline: 'Empowering young people and strengthening our community through action, opportunity and unity.',
-    mission: 'Improving standards of living and fighting unemployment for youth and local community groups.',
-    primaryCta: 'Explore Our Work',
+    kicker: 'TEN TO ONE YOUTH CLUB',
+    title: 'What happens when many people choose',
+    highlight: 'one purpose?',
+    subtitle: 'They become a force for change.',
+    intro: 'Ten to One Youth Club',
+    location: 'Kasangati Town Council, Wakiso District, Uganda',
+    primaryCta: 'Explore Our Story',
     secondaryCta: 'Get Involved',
   },
-  about: {
-    intro:
-      'Ten to One Youth Club is a community youth organization and club rooted in Kasangati Town Council, Wakiso District, Uganda.',
-    mission:
+  challenge: {
+    eyebrow: 'The challenge',
+    title: 'Potential is everywhere. Opportunity isn’t.',
+    text:
       'Improving standards of living and fighting unemployment for youth and local community groups.',
-    focus:
-      'We work to serve young people and community groups through practical support, outreach and local participation.',
-    empowerment:
-      'We focus on youth empowerment by creating opportunities for action, leadership and collective progress.',
-    unemployment:
-      'We remain committed to tackling unemployment through practical community action and local engagement.',
   },
-  programs: [
+  belief: {
+    eyebrow: 'The belief',
+    title: 'We believe change starts when people stop standing alone.',
+    text:
+      'When individuals choose to act together, service becomes stronger, participation becomes more meaningful, and communities begin to move forward with purpose.',
+  },
+  photoStory: {
+    eyebrow: 'The photo story',
+    title: 'Together means showing up.',
+    text:
+      'Community outreach is about making practical support visible, building trust, and standing alongside people and community groups in need.',
+  },
+  whatWeDo: [
     {
       title: 'Community Outreach',
       description:
-        'We connect with local communities to strengthen relationships, raise awareness and inspire participation in meaningful community action.',
-      cta: 'Support community activities',
-      href: '#get-involved',
-      icon: '◎',
+        'We strengthen relationships, raise awareness, and help local communities respond to real needs with practical support and participation.',
+      icon: '01',
     },
     {
       title: 'Youth Empowerment',
       description:
-        'We create opportunities for young people to grow through action, engagement and practical community involvement.',
-      cta: 'Participate in youth empowerment',
-      href: '#get-involved',
-      icon: '✦',
+        'We create opportunities for young people to grow through action, engagement, and meaningful community involvement.',
+      icon: '02',
     },
     {
-      title: 'Support for Needy Community Groups',
+      title: 'Community Action',
       description:
-        'We mobilize and donate to needy community groups so local action can respond to pressing needs in practical ways.',
-      cta: 'Partner with the organization',
-      href: '#get-involved',
-      icon: '▣',
+        'We work alongside people and groups to turn goodwill into action that supports everyday progress and local resilience.',
+      icon: '03',
     },
-  ],
-  impact: [
-    'Serving young people and community groups',
-    'Turning community action into practical support',
-    'Building stronger local participation',
   ],
   leadership: [
-    { name: 'Meshaq Turatsinze', role: 'Director', initials: 'MT' },
-    { name: 'Joy Suubi Mazinga', role: 'Spokesperson', initials: 'JM' },
-    { name: 'Senyondo Abdallah', role: 'Chief Advisor', initials: 'SA' },
-    { name: 'Muhammad Nsereko', role: 'Public Relations', initials: 'MN' },
+    { name: 'Meshaq Turatsinze', role: 'Director' },
+    { name: 'Joy Suubi Mazinga', role: 'Spokesperson' },
+    { name: 'Senyondo Abdallah', role: 'Chief Advisor' },
+    { name: 'Muhammad Nsereko', role: 'Public Relations' },
   ],
-  involvement: [
-    {
-      title: 'Volunteer',
-      text: 'Share your time and practical support for local youth and community action.',
-      href: '#contact',
-    },
-    {
-      title: 'Support community activities',
-      text: 'Help strengthen local outreach and community support efforts.',
-      href: '#contact',
-    },
-    {
-      title: 'Participate in youth empowerment',
-      text: 'Join community-led initiatives that encourage youth engagement and opportunity.',
-      href: '#contact',
-    },
-    {
-      title: 'Partner with the organization',
-      text: 'Explore practical ways to work together on local community action.',
-      href: '#contact',
-    },
-    {
-      title: 'Get in touch',
-      text: 'Connect with the team to learn more and discuss collaboration.',
-      href: '#contact',
-    },
-  ],
+  brandMoment: {
+    title: 'TEN',
+    subtitle: 'People. Ideas. Energy.',
+    titleTwo: 'TO',
+    subtitleTwo: 'Connection. Collaboration. Commitment.',
+    titleThree: 'ONE',
+    subtitleThree: 'Purpose. Action. Community.',
+    closing: 'Together as One.',
+  },
+  finalCta: {
+    eyebrow: 'Join the movement',
+    title: 'There is always room for one more person who wants to make a difference.',
+    primary: 'Stand With Ten to One',
+    secondary: 'Talk to Us',
+  },
   contact: {
     location: 'Kasangati Town Council, Wakiso District, Uganda',
   },

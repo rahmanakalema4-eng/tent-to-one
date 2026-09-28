@@ -1,22 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './App.css'
 import { content } from './content'
-
-function Button({ variant = 'primary', children, href, type = 'button' }) {
-  if (href) {
-    return (
-      <a className={`btn btn-${variant}`} href={href}>
-        {children}
-      </a>
-    )
-  }
-
-  return (
-    <button className={`btn btn-${variant}`} type={type}>
-      {children}
-    </button>
-  )
-}
 
 function SectionHeading({ eyebrow, title, text }) {
   return (
@@ -28,41 +12,38 @@ function SectionHeading({ eyebrow, title, text }) {
   )
 }
 
-function ProgramCard({ title, description, cta, href, icon }) {
-  return (
-    <article className="program-card">
-      <div className="program-icon" aria-hidden="true">{icon}</div>
-      <div className="program-copy">
-        <h3>{title}</h3>
-        <p>{description}</p>
-      </div>
-      <a className="program-link" href={href}>
-        {cta}
-      </a>
-    </article>
-  )
-}
+function Reveal({ children, className = '' }) {
+  const ref = useRef(null)
 
-function LeaderCard({ name, role, initials }) {
+  useEffect(() => {
+    const node = ref.current
+    if (!node) return undefined
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            node.classList.add('is-visible')
+            observer.unobserve(node)
+          }
+        })
+      },
+      { threshold: 0.18 },
+    )
+
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [])
+
   return (
-    <article className="leader-card">
-      <div className="leader-badge" aria-label={name}>
-        {initials}
-      </div>
-      <h3>{name}</h3>
-      <p>{role}</p>
-    </article>
+    <div ref={ref} className={`reveal ${className}`}>
+      {children}
+    </div>
   )
 }
 
 function App() {
   const [mobileNavOpen, setMobileNavOpen] = useState(false)
-  const [prototypeMessage, setPrototypeMessage] = useState('')
-
-  const handlePrototypeSubmit = (event) => {
-    event.preventDefault()
-    setPrototypeMessage('This is a prototype. Your message was not sent or saved.')
-  }
 
   return (
     <div className="site-shell">
@@ -112,189 +93,182 @@ function App() {
       </header>
 
       <main id="main-content">
-        <section id="home" className="hero-section">
-          <div className="hero-copy">
-            <p className="eyebrow">{content.hero.eyebrow}</p>
-            <h1>{content.hero.title}</h1>
-            <p className="hero-tagline">{content.hero.tagline}</p>
-            <p className="mission-statement">{content.hero.mission}</p>
-            <div className="cta-row">
-              <a className="btn btn-primary" href="#programs">
-                {content.hero.primaryCta}
-              </a>
-              <a className="btn btn-secondary" href="#get-involved">
-                {content.hero.secondaryCta}
-              </a>
+        <section id="story" className="hero-section">
+          <Reveal className="hero-copy-wrap">
+            <div className="hero-copy">
+              <p className="eyebrow">{content.hero.kicker}</p>
+              <h1>
+                {content.hero.title}{' '}
+                <span className="gold-highlight">{content.hero.highlight}</span>
+              </h1>
+              <p className="hero-tagline">{content.hero.subtitle}</p>
+              <div className="hero-meta">
+                <p className="hero-intro-name">{content.hero.intro}</p>
+                <p className="hero-location">{content.hero.location}</p>
+              </div>
+              <div className="cta-row">
+                <a className="btn btn-primary" href="#about">
+                  {content.hero.primaryCta}
+                </a>
+                <a className="btn btn-secondary" href="#join">
+                  {content.hero.secondaryCta}
+                </a>
+              </div>
             </div>
-          </div>
+          </Reveal>
 
-          <div className="hero-visual">
-            <div className="logo-panel">
-              <img
-                src="/ten-to-one-logo.jpeg"
-                alt="Ten to One Youth Club logo"
-                className="hero-logo"
-              />
+          <Reveal className="hero-visual-wrap">
+            <div className="hero-visual" aria-label="Ten to One Youth Club community outreach image">
+              <div className="hero-photo-frame">
+                <img
+                  className="hero-photo"
+                  src="/community-outreach.png"
+                  alt="Ten to One Youth Club community outreach"
+                />
+                <div className="hero-photo-overlay" aria-hidden="true" />
+                <img
+                  src="/ten-to-one-logo.jpeg"
+                  alt="Ten to One Youth Club logo"
+                  className="hero-logo"
+                />
+              </div>
             </div>
-          </div>
+          </Reveal>
         </section>
 
-        <section id="about" className="content-section">
-          <SectionHeading
-            eyebrow="About"
-            title="A youth-led community organization built for local action"
-            text="We work with young people and neighborhood groups to strengthen community participation and practical support."
-          />
-
-          <div className="two-column-layout">
-            <div className="text-block">
-              <p>{content.about.intro}</p>
-            </div>
-            <div className="text-block accent-block">
+        <Reveal>
+          <section id="about" className="content-section challenge-section">
+            <SectionHeading
+              eyebrow={content.challenge.eyebrow}
+              title={content.challenge.title}
+              text={content.challenge.text}
+            />
+            <div className="about-summary">
               <p>
-                <strong>Mission:</strong> {content.about.mission}
+                Ten to One Youth Club brings young people and community members together through service,
+                empowerment and practical community action.
               </p>
             </div>
-          </div>
+          </section>
+        </Reveal>
 
-          <div className="feature-grid">
-            <div className="feature-box">
-              <h3>Community focus</h3>
-              <p>{content.about.focus}</p>
+        <Reveal>
+          <section id="belief" className="content-section belief-section">
+            <div className="belief-layout">
+              <div className="belief-copy">
+                <p className="eyebrow">{content.belief.eyebrow}</p>
+                <h2>{content.belief.title}</h2>
+              </div>
+              <p className="belief-text">{content.belief.text}</p>
             </div>
-            <div className="feature-box">
-              <h3>Youth empowerment</h3>
-              <p>{content.about.empowerment}</p>
-            </div>
-            <div className="feature-box">
-              <h3>Commitment to action</h3>
-              <p>{content.about.unemployment}</p>
-            </div>
-          </div>
-        </section>
+          </section>
+        </Reveal>
 
-        <section id="programs" className="content-section">
-          <SectionHeading
-            eyebrow="Programs & Activities"
-            title="Practical actions that support young people and community groups"
-          />
-
-          <div className="program-grid">
-            {content.programs.map((program) => (
-              <ProgramCard key={program.title} {...program} />
-            ))}
-          </div>
-        </section>
-
-        <section id="community-impact" className="content-section impact-section">
-          <SectionHeading
-            eyebrow="Community Impact"
-            title="We work to serve young people and community groups"
-          />
-
-          <ul className="impact-list">
-            {content.impact.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-        </section>
-
-        <section id="leadership" className="content-section">
-          <SectionHeading
-            eyebrow="Leadership"
-            title="Guiding the work with local insight and community focus"
-          />
-
-          <div className="leader-grid">
-            {content.leadership.map((person) => (
-              <LeaderCard key={person.name} {...person} />
-            ))}
-          </div>
-        </section>
-
-        <section id="get-involved" className="content-section involve-section">
-          <SectionHeading
-            eyebrow="Get Involved"
-            title="Take part in community action, outreach and youth empowerment"
-          />
-
-          <div className="involve-grid">
-            <div className="action-panel">
-              <ul className="action-list">
-                {content.involvement.map((action) => (
-                  <li key={action.title}>
-                    <a href={action.href}>
-                      <span>{action.title}</span>
-                      <small>{action.text}</small>
-                    </a>
-                  </li>
-                ))}
-              </ul>
+        <Reveal>
+          <section id="impact" className="content-section impact-section">
+            <div className="impact-header">
+              <div>
+                <p className="eyebrow">{content.photoStory.eyebrow}</p>
+                <h2>{content.photoStory.title}</h2>
+              </div>
+              <p>{content.photoStory.text}</p>
             </div>
 
-            <form className="prototype-form" onSubmit={handlePrototypeSubmit}>
-              <p className="prototype-note">Prototype form</p>
-              <label>
-                Your name
-                <input type="text" name="name" placeholder="Your name" />
-              </label>
-              <label>
-                Interest
-                <input type="text" name="interest" placeholder="Volunteer, partner, support..." />
-              </label>
-              <label>
-                Message
-                <textarea name="message" rows="4" placeholder="Tell us how you would like to get involved." />
-              </label>
-              <button type="submit" className="btn btn-primary">
-                Submit prototype
-              </button>
-              {prototypeMessage ? (
-                <p className="prototype-status" role="status">
-                  {prototypeMessage}
-                </p>
-              ) : null}
-            </form>
-          </div>
-        </section>
+            <figure className="story-figure">
+              <img src="/community-outreach.png" alt="Community outreach in action" />
+              <figcaption>Community outreach in action</figcaption>
+            </figure>
+          </section>
+        </Reveal>
 
-        <section id="contact" className="content-section contact-section">
-          <SectionHeading
-            eyebrow="Contact"
-            title="Connect with Ten to One Youth Club"
-          />
+        <Reveal>
+          <section id="programs" className="content-section services-section">
+            <SectionHeading eyebrow="Programs" title="Purpose becomes action." />
 
-          <div className="contact-layout">
+            <div className="service-grid">
+              {content.whatWeDo.map((item) => (
+                <article key={item.title} className="service-card">
+                  <span className="service-number">{item.icon}</span>
+                  <h3>{item.title}</h3>
+                  <p>{item.description}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+        </Reveal>
+
+        <Reveal>
+          <section id="leadership" className="content-section leadership-section">
+            <SectionHeading eyebrow="Leadership" title="Different roles. One direction." />
+
+            <div className="leader-grid">
+              {content.leadership.map((person) => (
+                <article key={person.name} className="leader-card">
+                  <div className="leader-badge" aria-label={person.name}>
+                    {person.name
+                      .split(' ')
+                      .map((part) => part[0])
+                      .slice(0, 2)
+                      .join('')}
+                  </div>
+                  <h3>{person.name}</h3>
+                  <p>{person.role}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+        </Reveal>
+
+        <Reveal>
+          <section className="content-section brand-moment-section">
+            <div className="brand-moment-grid">
+              <div className="brand-item gold">
+                <span className="brand-label">TEN</span>
+                <p>People. Ideas. Energy.</p>
+              </div>
+              <div className="brand-item teal">
+                <span className="brand-label">TO</span>
+                <p>Connection. Collaboration. Commitment.</p>
+              </div>
+              <div className="brand-item red">
+                <span className="brand-label">ONE</span>
+                <p>Purpose. Action. Community.</p>
+              </div>
+            </div>
+            <p className="brand-closing">TOGETHER AS ONE</p>
+          </section>
+        </Reveal>
+
+        <Reveal>
+          <section id="join" className="content-section final-cta-section">
+            <div className="final-cta">
+              <p className="eyebrow">{content.finalCta.eyebrow}</p>
+              <h2>{content.finalCta.title}</h2>
+              <div className="cta-row cta-row-final">
+                <a className="btn btn-primary" href="#contact">
+                  {content.finalCta.primary}
+                </a>
+                <a className="btn btn-secondary" href="#contact">
+                  {content.finalCta.secondary}
+                </a>
+              </div>
+            </div>
+          </section>
+        </Reveal>
+
+        <Reveal>
+          <section id="contact" className="content-section contact-section">
             <div className="contact-card">
-              <p className="contact-label">Location</p>
-              <p className="contact-value">{content.contact.location}</p>
+              <p className="eyebrow">Contact</p>
+              <h2>Connect with Ten to One Youth Club</h2>
+              <p>{content.contact.location}</p>
             </div>
-
-            <form className="prototype-form compact" onSubmit={handlePrototypeSubmit}>
-              <p className="prototype-note">Prototype form</p>
-              <label>
-                Name
-                <input type="text" name="contact-name" placeholder="Your name" />
-              </label>
-              <label>
-                Message
-                <textarea name="contact-message" rows="4" placeholder="How can we help?" />
-              </label>
-              <button type="submit" className="btn btn-primary">
-                Send message
-              </button>
-              {prototypeMessage ? (
-                <p className="prototype-status" role="status">
-                  {prototypeMessage}
-                </p>
-              ) : null}
-            </form>
-          </div>
-        </section>
+          </section>
+        </Reveal>
       </main>
 
       <footer className="site-footer">
-        <p>Kasangati Town Council, Wakiso District, Uganda</p>
+        <p>{content.contact.location}</p>
       </footer>
     </div>
   )

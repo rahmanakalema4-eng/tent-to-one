@@ -1,21 +1,16 @@
 :root {
-  --ten-gold: #d4a437;
-  --ten-teal: #0b5d5a;
-  --ten-red: #bf3b2c;
-  --ten-ink: #101a1a;
-  --ten-white: #ffffff;
-  --ten-surface: #f6f1e8;
-  --ten-border: rgba(16, 26, 26, 0.12);
+  --ten-gold: #FAB502;
+  --ten-teal: #038B7D;
+  --ten-red: #F40117;
+  --ten-ink: #111827;
+  --ten-white: #FFFFFF;
+  --ten-surface: #f8f8f5;
+  --ten-soft-gold: rgba(250, 181, 2, 0.12);
+  --ten-soft-teal: rgba(3, 139, 125, 0.12);
+  --ten-border: rgba(17, 24, 39, 0.12);
 
   --font-display: 'Trebuchet MS', 'Segoe UI', sans-serif;
   --font-body: 'Segoe UI', sans-serif;
-
-  --space-1: 0.5rem;
-  --space-2: 1rem;
-  --space-3: 1.5rem;
-  --space-4: 2rem;
-  --space-5: 2.5rem;
-  --space-6: 3rem;
 
   --radius-sm: 0.5rem;
   --radius-md: 0.875rem;
@@ -24,6 +19,7 @@
   --radius-pill: 999px;
 
   --shadow-soft: 0 18px 40px rgba(16, 26, 26, 0.08);
+  --shadow-strong: 0 26px 60px rgba(16, 26, 26, 0.12);
 
   color: var(--ten-ink);
   background: var(--ten-white);
@@ -53,6 +49,7 @@ body {
 
 img {
   max-width: 100%;
+  display: block;
 }
 
 #root {
@@ -74,4 +71,8 @@ h2,
 h3,
 p {
   margin-top: 0;
+}
+
+::selection {
+  background: rgba(212, 164, 55, 0.3);
 }
