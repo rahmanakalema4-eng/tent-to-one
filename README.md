@@ -1,28 +1,51 @@
+# Ten to One Youth Club
 
-## Live Inquiries
+Website for the Ten to One Youth Club, built with React, Vite, and plain CSS. The Join and Contact forms use a small Node API for inquiry handling.
 
-The Join and Contact forms post to the Node API at `/api/inquiries`. The API validates requests, stores them in SQLite, and emails the team using Resend. It requires Node 24 or newer for the built-in SQLite module.
+## Requirements
 
-1. Copy `.env.example` to `.env`.
-2. Set `RESEND_API_KEY` and `RESEND_FROM_EMAIL`. The sender address must be verified in Resend; `CONTACT_TO_EMAIL` defaults to `tentoone00@gmail.com`.
-3. Keep `.env` private. Do not put provider credentials in frontend variables or commit them.
-4. Run `npm run dev` to start the Vite frontend and API together. Run `npm test` for API tests.
-5. For deployment, build with `npm run build`, then run `npm start` with `NODE_ENV=production`. Use a Node host with persistent disk storage for `DATABASE_PATH`; SQLite data is stored locally and does not suit ephemeral filesystems or multiple API instances.
+- Node.js 24 or newer (the API uses Node's built-in SQLite module)
+- npm
 
-Set `ALLOWED_ORIGIN` to the exact deployed site origin and `TRUST_PROXY_HOPS` to the number of trusted reverse proxies in front of the app. The API records inquiry details only after submission, stores email delivery status, and applies a honeypot and per-IP rate limit. Monetary donations are not processed by these forms.
-# React + Vite
+## Local Development
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+```sh
+npm install
+```
 
-Currently, two official plugins are available:
+Copy `.env.example` to `.env`, then set `RESEND_API_KEY` and `RESEND_FROM_EMAIL`. The sender address must be verified with Resend. `CONTACT_TO_EMAIL` defaults to `tentoone00@gmail.com`.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+On PowerShell, create the local environment file with:
 
-## React Compiler
+```powershell
+Copy-Item .env.example .env
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Start the frontend and API together:
 
-## Expanding the Oxlint configuration
+```sh
+npm run dev
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+The Vite server proxies `/api` requests to the local API on port 3001. Set `API_TARGET` if the API runs elsewhere.
+
+## Forms and API
+
+Both forms post to `POST /api/inquiries`. Supported request types are membership, project contribution, partnership/resources, and general contact. Valid submissions are stored in SQLite and emailed through Resend, with the submitter's address set as the reply-to. The API includes validation, consent enforcement, a honeypot, and a per-IP rate limit. It does not process monetary donations.
+
+If email delivery fails, the request remains stored with its delivery status and the form reports that it was not emailed. The local database is created under `data/` by default and is ignored by Git.
+
+## Checks
+
+```sh
+npm test
+npm run lint
+npm run build
+node scripts/check-contrast.mjs
+```
+
+## Deployment
+
+Build the frontend with `npm run build`, then run the API with `NODE_ENV=production npm start`. Set `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, `CONTACT_TO_EMAIL`, `ALLOWED_ORIGIN`, `DATABASE_PATH`, and `TRUST_PROXY_HOPS` in the host's environment settings. Keep API credentials server-side; never use a `VITE_` variable for secrets.
+
+The API requires a Node host with persistent disk storage for SQLite and is intended to run as a single instance. Ephemeral serverless filesystems or multiple API instances require moving inquiry storage to a managed database.
