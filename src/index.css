@@ -1,16 +1,26 @@
 :root {
   --ten-gold: #FAB502;
   --ten-teal: #038B7D;
+  --ten-teal-deep: #0A4A45;
   --ten-red: #F40117;
   --ten-ink: #111827;
   --ten-white: #FFFFFF;
-  --ten-surface: #f8f8f5;
+  --ten-surface: #F7F4EB;
+  --ten-gold-dark: #C68E00;
   --ten-soft-gold: rgba(250, 181, 2, 0.12);
   --ten-soft-teal: rgba(3, 139, 125, 0.12);
   --ten-border: rgba(17, 24, 39, 0.12);
+  --ten-hero-overlay-left: rgba(10, 74, 69, 0.96);
+  --ten-hero-overlay-middle: rgba(10, 74, 69, 0.88);
+  --ten-hero-overlay-right: rgba(10, 74, 69, 0.93);
+  --ten-header-over-hero: rgba(10, 74, 69, 0.98);
+  --ten-white-line: rgba(255, 255, 255, 0.24);
+  --ten-white-hairline: rgba(255, 255, 255, 0.22);
+  --ten-field-placeholder: #596273;
+  --ten-status-surface: #EAF2EC;
 
-  --font-display: 'Trebuchet MS', 'Segoe UI', sans-serif;
-  --font-body: 'Segoe UI', sans-serif;
+  --font-display: 'Montserrat', 'Segoe UI', sans-serif;
+  --font-body: 'Montserrat', 'Segoe UI', sans-serif;
 
   --radius-sm: 0.5rem;
   --radius-md: 0.875rem;
@@ -18,11 +28,11 @@
   --radius-xl: 1.7rem;
   --radius-pill: 999px;
 
-  --shadow-soft: 0 18px 40px rgba(16, 26, 26, 0.08);
-  --shadow-strong: 0 26px 60px rgba(16, 26, 26, 0.12);
+  --shadow-soft: 0 18px 40px rgba(17, 24, 39, 0.12);
+  --shadow-strong: 0 26px 60px rgba(17, 24, 39, 0.24);
 
   color: var(--ten-ink);
-  background: var(--ten-white);
+  background: var(--ten-surface);
   font-family: var(--font-body);
   line-height: 1.6;
   font-synthesis: none;
@@ -42,7 +52,7 @@ html {
 body {
   margin: 0;
   min-width: 320px;
-  background: linear-gradient(180deg, #fffefb 0%, var(--ten-surface) 100%);
+  background: var(--ten-surface);
   color: var(--ten-ink);
   overflow-x: hidden;
 }
@@ -74,5 +84,5 @@ p {
 }
 
 ::selection {
-  background: rgba(212, 164, 55, 0.3);
+  background: var(--ten-soft-gold);
 }
