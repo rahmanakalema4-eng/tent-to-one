@@ -46,6 +46,8 @@ node scripts/check-contrast.mjs
 
 ## Deployment
 
-Build the frontend with `npm run build`, then run the API with `NODE_ENV=production npm start`. Set `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, `CONTACT_TO_EMAIL`, `ALLOWED_ORIGIN`, `DATABASE_PATH`, and `TRUST_PROXY_HOPS` in the host's environment settings. Keep API credentials server-side; never use a `VITE_` variable for secrets.
+The site can be deployed to Netlify as a static site. `netlify.toml` sets the build command to `npm run build`, publishes `dist`, and selects Node.js 24 for the build. The join and contact forms are registered with Netlify Forms and submit there in production; local development continues to use the Express API.
 
-The API requires a Node host with persistent disk storage for SQLite and is intended to run as a single instance. Ephemeral serverless filesystems or multiple API instances require moving inquiry storage to a managed database.
+After the first deploy, open the site's Forms area in Netlify and confirm that `join-inquiry` and `contact-inquiry` are listed. Add an email notification for each form and set the destination to the Ten to One inbox. Submit a test from the deployed site and confirm it appears in Netlify and arrives by email. Netlify form submissions are managed in the Netlify dashboard, so the deployed static site does not need SQLite, a persistent disk, or the Resend API key.
+
+For local development, the Express API still uses SQLite and Resend. Keep local secrets in `.env`; never put API credentials in frontend variables such as `VITE_*`.

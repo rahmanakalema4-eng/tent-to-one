@@ -232,10 +232,15 @@ function App() {
     setSubmitting(true)
 
     try {
-      const response = await fetch('/api/inquiries', {
+      const isNetlify = import.meta.env.PROD
+      const response = await fetch(isNetlify ? '/' : '/api/inquiries', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
+        headers: {
+          'Content-Type': isNetlify ? 'application/x-www-form-urlencoded' : 'application/json',
+        },
+        body: isNetlify
+          ? new URLSearchParams(formData).toString()
+          : JSON.stringify(payload),
       })
       const result = await response.json().catch(() => ({}))
       if (!response.ok) throw new Error(result.message || content.forms.error)
@@ -530,7 +535,8 @@ function App() {
                 </article>
               ))}
             </div>
-            <form className="prototype-form" aria-label={content.sections.getInvolved} onSubmit={handleJoinSubmit}>
+            <form className="prototype-form" aria-label={content.sections.getInvolved} name="join-inquiry" data-netlify="true" data-netlify-honeypot="website" onSubmit={handleJoinSubmit}>
+              <input type="hidden" name="form-name" value="join-inquiry" />
               <HoneypotField />
               <label>{content.forms.nameLabel}<input type="text" name="name" autoComplete="name" maxLength="100" placeholder={content.forms.namePlaceholder} required /></label>
               <label>{content.forms.emailLabel}<input type="email" name="email" autoComplete="email" maxLength="254" placeholder={content.forms.emailPlaceholder} required /></label>
@@ -577,7 +583,8 @@ function App() {
                 <p><span>{content.contact.emailLabel}</span><a href={`mailto:${content.contact.email}`}>{content.contact.email}</a></p>
               </address>
             </div>
-            <form className="prototype-form contact-form" aria-label={content.sections.contact} onSubmit={handleContactSubmit}>
+            <form className="prototype-form contact-form" aria-label={content.sections.contact} name="contact-inquiry" data-netlify="true" data-netlify-honeypot="website" onSubmit={handleContactSubmit}>
+              <input type="hidden" name="form-name" value="contact-inquiry" />
               <HoneypotField />
               <input type="hidden" name="type" value="general" />
               <label>{content.forms.contactNameLabel}<input type="text" name="name" autoComplete="name" maxLength="100" placeholder={content.forms.namePlaceholder} required /></label>
